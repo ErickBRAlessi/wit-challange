@@ -41,7 +41,7 @@ mvn -f rest/pom.xml spring-boot:run
 mvn -f calculator/pom.xml spring-boot:run
 ``
 
-## Main Tecs
+## Main Techs
 
 - Java 11 (adopt-openjdk-11)
 - SpringBoot 2.5.3
