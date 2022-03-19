@@ -15,5 +15,5 @@ public interface ICalculatorService {
 
     public BigDecimal divide(BigDecimal a, BigDecimal b) throws JsonProcessingException;
 
-    public BigDecimal calculate(Operation operation, BigDecimal a, BigDecimal b);
+    public BigDecimal calculate(Operation operation, BigDecimal a, BigDecimal b) throws JsonProcessingException;
 }

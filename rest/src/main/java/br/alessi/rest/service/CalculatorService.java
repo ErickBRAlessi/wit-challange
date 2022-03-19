@@ -2,15 +2,17 @@ package br.alessi.rest.service;
 
 import br.alessi.rest.configuration.RabbitMQConfig;
 import br.alessi.rest.dto.CalculatorRequestMQDTO;
-import br.alessi.rest.dto.CalculatorResponseDTO;
+import br.alessi.rest.dto.CalculatorResponseMQDTO;
 import br.alessi.rest.enums.Operation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -24,53 +26,53 @@ public class CalculatorService implements ICalculatorService {
     private RabbitTemplate rabbitTemplate;
 
     @Override
-    public BigDecimal calculate(Operation operation, BigDecimal a, BigDecimal b) {
-        try {
-            switch (operation) {
-                case SUM:
-                    return sum(a, b);
-                case MINUS:
-                    return minus(a, b);
-                case MULTIPLY:
-                    return multiply(a, b);
-                case DIVIDE:
-                    return divide(a, b);
-                default:
-                    throw new ArithmeticException("Operation not supported");
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage());
+    public BigDecimal calculate(Operation operation, BigDecimal a, BigDecimal b) throws JsonProcessingException {
+        switch (operation) {
+            case SUM:
+                return sum(a, b);
+            case MINUS:
+                return minus(a, b);
+            case MULTIPLY:
+                return multiply(a, b);
+            case DIVIDE:
+                return divide(a, b);
+            default:
+                throw new ArithmeticException("Operation not supported");
         }
-        return null;
     }
 
     @Override
     public BigDecimal sum(BigDecimal a, BigDecimal b) throws JsonProcessingException {
-        String result = send(getJson(Operation.SUM, a, b));
-        return getCalculatorResponseDTO(result);
+        String result = sendCalculatorQueue(getJson(Operation.SUM, a, b));
+        return processResult(result);
     }
-
 
     @Override
     public BigDecimal minus(BigDecimal a, BigDecimal b) throws JsonProcessingException {
-        String result = send(getJson(Operation.MINUS, a, b));
-        return getCalculatorResponseDTO(result);
+        String result = sendCalculatorQueue(getJson(Operation.MINUS, a, b));
+        return processResult(result);
     }
 
     @Override
     public BigDecimal multiply(BigDecimal a, BigDecimal b) throws JsonProcessingException {
-        String result = send(getJson(Operation.MULTIPLY, a, b));
-        return getCalculatorResponseDTO(result);
+        String result = sendCalculatorQueue(getJson(Operation.MULTIPLY, a, b));
+        return processResult(result);
     }
 
     @Override
     public BigDecimal divide(BigDecimal a, BigDecimal b) throws JsonProcessingException {
-        String result = send(getJson(Operation.DIVIDE, a, b));
-        return getCalculatorResponseDTO(result);
+        if (b.equals(BigDecimal.ZERO)) {
+            throw new ArithmeticException("Do not divide by zero");
+        }
+        String result = sendCalculatorQueue(getJson(Operation.DIVIDE, a, b));
+        return processResult(result);
     }
 
-    private String send(String message) {
-        Message newMessage = MessageBuilder.withBody(message.getBytes()).build();
+    private String sendCalculatorQueue(String message) {
+        Message newMessage = MessageBuilder
+                .withBody(message.getBytes())
+                .setHeader("request-id", MDC.get("request"))
+                .build();
 
         log.info("Rest will send the following msg：{}", newMessage);
 
@@ -89,16 +91,19 @@ public class CalculatorService implements ICalculatorService {
 
             if (msgId.equals(correlationId)) {
                 response = new String(result.getBody());
-                log.info("client receive：{}", response);
+                log.info("Client receive：{}", response);
             }
         }
         return response;
     }
 
-    private BigDecimal getCalculatorResponseDTO(String result) throws JsonProcessingException {
+    private BigDecimal processResult(String result) throws JsonProcessingException {
         log.info("Calculator succefully return: {}", result);
         ObjectMapper mapper = new ObjectMapper();
-        CalculatorResponseDTO responseDTO = mapper.readValue(result, CalculatorResponseDTO.class);
+        CalculatorResponseMQDTO responseDTO = mapper.readValue(result, CalculatorResponseMQDTO.class);
+        if (responseDTO.getStatus() != HttpStatus.OK) {
+            throw new ArithmeticException(responseDTO.getMsg());
+        }
         return responseDTO.getResult();
     }
 

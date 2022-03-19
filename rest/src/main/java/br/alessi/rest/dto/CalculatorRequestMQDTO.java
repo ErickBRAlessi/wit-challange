@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CalculatorRequestMQDTO {
-    
+
     private Operation operator;
 
     private BigDecimal a;

@@ -48,3 +48,4 @@ mvn -f calculator/pom.xml spring-boot:run
 - Maven
 - RabbitMQ (implemented RPC - Remote Procedure Call)
 - Lombok
+- MDC (Mapped Diagnostic Context) for logging

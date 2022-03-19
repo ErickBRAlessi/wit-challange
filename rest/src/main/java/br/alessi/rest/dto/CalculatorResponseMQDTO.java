@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 import java.math.BigDecimal;
 
@@ -11,8 +12,11 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CalculatorResponseDTO {
+public class CalculatorResponseMQDTO {
+
+    private HttpStatus status;
+
+    private String msg;
 
     private BigDecimal result;
-
 }
