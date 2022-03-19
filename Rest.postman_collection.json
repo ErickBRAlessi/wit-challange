@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "1dd4087e-2d02-42e8-8275-3ac462ab832e",
+		"name": "Rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sum",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/1.0/sum?a=1&b=5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"1.0",
+						"sum"
+					],
+					"query": [
+						{
+							"key": "a",
+							"value": "1"
+						},
+						{
+							"key": "b",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Minus",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/1.0/minus?a=88&b=-1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"1.0",
+						"minus"
+					],
+					"query": [
+						{
+							"key": "a",
+							"value": "88"
+						},
+						{
+							"key": "b",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Multiply",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/1.0/multiply?a=99999999999999999999999999&b=99999999999999999999999999",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"1.0",
+						"multiply"
+					],
+					"query": [
+						{
+							"key": "a",
+							"value": "99999999999999999999999999"
+						},
+						{
+							"key": "b",
+							"value": "99999999999999999999999999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Divide",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/1.0/divide?a=0&b=0",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"1.0",
+						"divide"
+					],
+					"query": [
+						{
+							"key": "a",
+							"value": "0"
+						},
+						{
+							"key": "b",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DivideByZeroError",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/1.0/divide?a=0&b=0",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"1.0",
+						"divide"
+					],
+					"query": [
+						{
+							"key": "a",
+							"value": "0"
+						},
+						{
+							"key": "b",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OperationNotValidError",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/1.0/divide?a=0&b=0",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"1.0",
+						"divide"
+					],
+					"query": [
+						{
+							"key": "a",
+							"value": "0"
+						},
+						{
+							"key": "b",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

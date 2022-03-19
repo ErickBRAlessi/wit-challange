@@ -4,7 +4,9 @@
 
 Development of a Rest API that provides the basic funcionalities of a calculator.
 
-Fully Specs can be found on the pdf: ./Challenge JAVA_2020.pdf
+Fully Specs can be found on the pdf: ***./Challenge JAVA_2020.pdf***
+
+There is a collection that can be imported on Postman for calling the Rest module. ***./Rest.postman_collection.json***
 
 ### Modules
 
