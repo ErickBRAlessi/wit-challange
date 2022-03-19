@@ -1,0 +1,11 @@
+br/alessi/rest/dto/CalculatorResponseDTO.class
+br/alessi/rest/service/ICalculatorService.class
+br/alessi/rest/RestApplication.class
+br/alessi/rest/service/CalculatorService.class
+br/alessi/rest/dto/CalculatorResponseDTO$CalculatorResponseDTOBuilder.class
+br/alessi/rest/configuration/RabbitMQConfig.class
+br/alessi/rest/dto/CalculatorRequestMQDTO$CalculatorRequestMQDTOBuilder.class
+br/alessi/rest/dto/CalculatorRequestMQDTO.class
+br/alessi/rest/controller/CalculatorController.class
+br/alessi/rest/service/CalculatorService$1.class
+br/alessi/rest/enums/Operation.class

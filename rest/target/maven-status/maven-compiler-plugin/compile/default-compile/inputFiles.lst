@@ -1,0 +1,8 @@
+/home/alessi/Desktop/Workspace/wit-challange/rest/src/main/java/br/alessi/rest/dto/CalculatorRequestMQDTO.java
+/home/alessi/Desktop/Workspace/wit-challange/rest/src/main/java/br/alessi/rest/enums/Operation.java
+/home/alessi/Desktop/Workspace/wit-challange/rest/src/main/java/br/alessi/rest/configuration/RabbitMQConfig.java
+/home/alessi/Desktop/Workspace/wit-challange/rest/src/main/java/br/alessi/rest/RestApplication.java
+/home/alessi/Desktop/Workspace/wit-challange/rest/src/main/java/br/alessi/rest/service/CalculatorService.java
+/home/alessi/Desktop/Workspace/wit-challange/rest/src/main/java/br/alessi/rest/controller/CalculatorController.java
+/home/alessi/Desktop/Workspace/wit-challange/rest/src/main/java/br/alessi/rest/dto/CalculatorResponseDTO.java
+/home/alessi/Desktop/Workspace/wit-challange/rest/src/main/java/br/alessi/rest/service/ICalculatorService.java
