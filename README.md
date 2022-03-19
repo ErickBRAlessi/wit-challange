@@ -15,7 +15,7 @@ Fully Specs can be found on the pdf: ./Challenge JAVA_2020.pdf
 
 ### Starting RabbitMQ
 
-From the root of repository (wit-challange)
+From the root of the repository (wit-challange)
 
 Run:
 
