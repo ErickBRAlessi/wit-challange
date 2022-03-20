@@ -41,25 +41,21 @@ public class CalculatorService implements ICalculatorService {
         }
     }
 
-    @Override
     public BigDecimal sum(BigDecimal a, BigDecimal b) throws JsonProcessingException {
         String result = sendCalculatorQueue(getJson(Operation.SUM, a, b));
         return processResult(result);
     }
 
-    @Override
     public BigDecimal minus(BigDecimal a, BigDecimal b) throws JsonProcessingException {
         String result = sendCalculatorQueue(getJson(Operation.MINUS, a, b));
         return processResult(result);
     }
 
-    @Override
     public BigDecimal multiply(BigDecimal a, BigDecimal b) throws JsonProcessingException {
         String result = sendCalculatorQueue(getJson(Operation.MULTIPLY, a, b));
         return processResult(result);
     }
 
-    @Override
     public BigDecimal divide(BigDecimal a, BigDecimal b) throws JsonProcessingException {
         if (b.equals(BigDecimal.ZERO)) {
             throw new ArithmeticException("Do not divide by zero");
@@ -71,7 +67,7 @@ public class CalculatorService implements ICalculatorService {
     private String sendCalculatorQueue(String message) {
         Message newMessage = MessageBuilder
                 .withBody(message.getBytes())
-                .setHeader("request-id", MDC.get("request"))
+                .setHeader("Request-Id", MDC.get("request"))
                 .build();
 
         log.info("Rest will send the following msg：{}", newMessage);

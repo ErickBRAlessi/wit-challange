@@ -30,12 +30,12 @@ public class RCPServerController {
 
     @RabbitListener(queues = RabbitMQConfig.RPC_CALC_REQ_QUEUE)
     public void calculatorListener(Message msg) throws IOException {
-        MDC.put("request", msg.getMessageProperties().getHeader("request-id"));
+        MDC.put("request", msg.getMessageProperties().getHeader("Request-Id"));
 
         CalculatorResponseDTO result = calculatorService.process(msg);
 
-        log.info("Msg processed");
-        
+        log.info("Msg processed: {}", result);
+
         Message response = MessageBuilder.withBody(getJson(result).getBytes()).build();
         CorrelationData correlationData = new CorrelationData(msg.getMessageProperties().getCorrelationId());
         rabbitTemplate.sendAndReceive(RabbitMQConfig.RPC_CALC_EXCHANGE, RabbitMQConfig.RPC_CALC_RES_QUEUE, response, correlationData);

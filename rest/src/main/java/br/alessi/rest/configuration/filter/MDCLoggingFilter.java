@@ -2,6 +2,7 @@ package br.alessi.rest.configuration.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,13 @@ import java.util.UUID;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class MDCLoggingFilter implements Filter {
 
+    @Value("${mdc.request.method}")
+    private String httpMethod;
+    @Value("${mdc.request.key}")
+    private String requestKey;
+    @Value("${mdc.request.uri}")
+    private String uriKey;
+
     @Override
     public void doFilter(
             ServletRequest request,
@@ -26,11 +34,11 @@ public class MDCLoggingFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
 
         UUID requestID = UUID.randomUUID();
-        MDC.put("method", req.getMethod());
-        MDC.put("request", requestID.toString());
-        MDC.put("uri", req.getRequestURI());
+        MDC.put(httpMethod, req.getMethod());
+        MDC.put(requestKey, requestID.toString());
+        MDC.put(uriKey, req.getRequestURI());
 
-        ((HttpServletResponse) response).addHeader("request-id", requestID.toString());
+        ((HttpServletResponse) response).addHeader("Request-Id", requestID.toString());
         chain.doFilter(request, response);
 
     }
