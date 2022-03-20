@@ -18,7 +18,6 @@ public class CalculatorService implements ICalculatorService {
 
     public CalculatorResponseDTO process(Message msg) {
         log.info("Msg to be processed: {}", msg);
-        CalculatorResponseDTO result = null;
         try {
             return CalculatorResponseDTO.builder()
                     .status(HttpStatus.OK)
