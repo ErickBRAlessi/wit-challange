@@ -101,7 +101,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/1.0/divide?a=0&b=0",
+					"raw": "localhost:8080/api/1.0/divide?a=8&b=3",
 					"host": [
 						"localhost"
 					],
@@ -114,11 +114,11 @@
 					"query": [
 						{
 							"key": "a",
-							"value": "0"
+							"value": "8"
 						},
 						{
 							"key": "b",
-							"value": "0"
+							"value": "3"
 						}
 					]
 				}
@@ -131,7 +131,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/1.0/divide?a=0&b=0",
+					"raw": "localhost:8080/api/1.0/divide?a=1&b=0",
 					"host": [
 						"localhost"
 					],
@@ -144,7 +144,7 @@
 					"query": [
 						{
 							"key": "a",
-							"value": "0"
+							"value": "1"
 						},
 						{
 							"key": "b",
@@ -161,7 +161,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/1.0/divide?a=0&b=0",
+					"raw": "localhost:8080/api/1.0/operationNotValid?a=2&b=0",
 					"host": [
 						"localhost"
 					],
@@ -169,12 +169,12 @@
 					"path": [
 						"api",
 						"1.0",
-						"divide"
+						"operationNotValid"
 					],
 					"query": [
 						{
 							"key": "a",
-							"value": "0"
+							"value": "2"
 						},
 						{
 							"key": "b",

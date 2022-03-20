@@ -33,6 +33,9 @@ public class RCPServerController {
         MDC.put("request", msg.getMessageProperties().getHeader("request-id"));
 
         CalculatorResponseDTO result = calculatorService.process(msg);
+
+        log.info("Msg processed");
+        
         Message response = MessageBuilder.withBody(getJson(result).getBytes()).build();
         CorrelationData correlationData = new CorrelationData(msg.getMessageProperties().getCorrelationId());
         rabbitTemplate.sendAndReceive(RabbitMQConfig.RPC_CALC_EXCHANGE, RabbitMQConfig.RPC_CALC_RES_QUEUE, response, correlationData);

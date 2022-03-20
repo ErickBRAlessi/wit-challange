@@ -34,10 +34,18 @@ It can be runned from the IDE or directly from maven (terminal) as It is describ
 #### Running Rest Project
 
 ``
+mvn -f rest/pom.xml clean
+``
+
+``
 mvn -f rest/pom.xml spring-boot:run
 ``
 
 #### Running Calculator Project
+
+``
+mvn -f calculator/pom.xml clean
+``
 
 ``
 mvn -f calculator/pom.xml spring-boot:run

@@ -82,7 +82,6 @@ public class CalculatorService implements ICalculatorService {
         if (result != null) {
             //  correlationId
             String correlationId = newMessage.getMessageProperties().getCorrelationId();
-            log.info("correlationId:{}", correlationId);
 
             HashMap<String, Object> headers = (HashMap<String, Object>) result.getMessageProperties().getHeaders();
 
@@ -98,12 +97,13 @@ public class CalculatorService implements ICalculatorService {
     }
 
     private BigDecimal processResult(String result) throws JsonProcessingException {
-        log.info("Calculator succefully return: {}", result);
         ObjectMapper mapper = new ObjectMapper();
         CalculatorResponseMQDTO responseDTO = mapper.readValue(result, CalculatorResponseMQDTO.class);
         if (responseDTO.getStatus() != HttpStatus.OK) {
+            log.error("Calculator return failed: {}", result);
             throw new ArithmeticException(responseDTO.getMsg());
         }
+        log.info("Calculator return succefully processed: {}", result);
         return responseDTO.getResult();
     }
 

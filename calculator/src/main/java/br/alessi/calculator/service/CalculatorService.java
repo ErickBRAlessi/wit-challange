@@ -4,6 +4,7 @@ import br.alessi.calculator.dto.CalculatorRequestDTO;
 import br.alessi.calculator.dto.CalculatorResponseDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -11,21 +12,25 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+@Slf4j
 @Service
 public class CalculatorService implements ICalculatorService {
 
     public CalculatorResponseDTO process(Message msg) {
-        CalculatorResponseDTO result = new CalculatorResponseDTO();
+        log.info("Msg to be processed: {}", msg);
+        CalculatorResponseDTO result = null;
         try {
-            BigDecimal value = calculate(getCalculatorRequestDTO(msg));
-            result.setStatus(HttpStatus.OK);
-            result.setResult(value);
-            return result;
+            return CalculatorResponseDTO.builder()
+                    .status(HttpStatus.OK)
+                    .result(calculate(getCalculatorRequestDTO(msg)))
+                    .build();
         } catch (Exception e) {
-            result.setStatus(HttpStatus.BAD_REQUEST);
-            result.setMsg(e.getMessage());
-            result.setResult(null);
-            return result;
+            log.error("Error processing msg: {}", e);
+            return CalculatorResponseDTO.builder()
+                    .status(HttpStatus.BAD_REQUEST)
+                    .msg(e.getMessage())
+                    .result(null)
+                    .build();
         }
     }
 
